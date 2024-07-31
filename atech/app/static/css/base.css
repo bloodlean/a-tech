@@ -1,0 +1,161 @@
+/* Основные стили для body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Стили для header */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f4f4f4;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Стили для логотипа */
+.logo h1 {
+    margin: 0;
+    font-size: 35px;
+    color: #333;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+/* Стили для поисковой формы */
+.search-box {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.search-box form {
+    display: flex;
+    align-items: center;
+}
+
+.search-box input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+.search-box button {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f84622;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-box button:hover {
+    background-color: #cd2706;
+}
+
+.search-btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f84622;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #cd2706;
+}
+
+/* Стили для кнопки расширенного поиска */
+#advanced-search-btn {
+    padding: 8px 16px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f84622;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#advanced-search-btn:hover {
+    background-color: #cd2706;
+}
+
+/* Стили для блока расширенного поиска */
+#advanced-search {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+}
+
+#advanced-search input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Стили для списка продуктов */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* расстояние между продуктами */
+    justify-content: space-between; /* выравнивание продуктов по горизонтали */
+}
+
+.product {
+    flex: 1 1 calc(20% - 20px); /* 5 продуктов в ряд с учетом промежутков */
+    box-sizing: border-box;
+    text-align: center; /* выравнивание текста по центру */
+}
+
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; /* скругление углов изображения */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* теневой эффект */
+}
+
+.product-name {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.required:after {
+    content: none !important;
+}
+
+.search-input {
+    width: 500px; 
+    padding: 5px;
+}
+
+.product-list1 {
+    margin-top: 50px;
+}
+
+main {
+    margin: 20px; /* отступы для основного контента */
+}
+
+.search-box, #advanced-search {
+    margin-bottom: 20px; /* добавьте отступы для поиска */
+}
+.products{
+    display: flex;
+    justify-content: space-around;
+}
