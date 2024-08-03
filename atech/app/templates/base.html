@@ -16,6 +16,11 @@
         <button id="advanced-search-btn">Расширенный поиск</button>
     </header>
     <main>
+        {% for x in products %}
+        <div class="menu">
+            <p>{{x.category_name}}</p>
+        </div>
+        {% endfor %}
         <div class="search1">
             <div class="search-box">
                 <form method="GET" action="{% url 'search_view' %}">
@@ -25,7 +30,6 @@
                 </form>
             </div>
         </div> 
-        <!-- Расширенный поиск (скрыт по умолчанию) -->
         <div id="advanced-search" style="display: none;">
             <h2>Расширенный поиск</h2>
             <form method="GET" action="{% url 'onlinestore' %}">
@@ -34,8 +38,6 @@
                 <button class="search-btn" type="submit">Искать</button>
             </form>
         </div>
-    
-        <!-- Отображение результатов поиска -->
         {% if products %}
             <div class="product-list">
                 {% for product in products %}
