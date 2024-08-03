@@ -32,6 +32,7 @@ header {
 .search-box {
     flex: 1;
     margin: 0 20px;
+    padding-top: 15px;
 }
 
 .search-box form {
@@ -108,31 +109,41 @@ header {
     margin-right: 10px;
 }
 
-/* Стили для списка продуктов */
+/* Стили для списка продуктов с использованием CSS Grid */
 .product-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* расстояние между продуктами */
-    justify-content: space-between; /* выравнивание продуктов по горизонтали */
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px; /* расстояние между карточками */
 }
 
 .product {
-    flex: 1 1 calc(20% - 20px); /* 5 продуктов в ряд с учетом промежутков */
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* ширина карточки занимает всю доступную ширину */
+    height: 300px; /* фиксированная высота карточки */
     box-sizing: border-box;
-    text-align: center; /* выравнивание текста по центру */
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    /* Убедитесь, что карточка выравнена правильно */
 }
 
 .product-image {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px; /* скругление углов изображения */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* теневой эффект */
+    width: 100%;
+    height: 60%; /* фиксированная высота для изображения */
+    object-fit: cover; /* изображение заполняет контейнер */
 }
 
 .product-name {
-    margin-top: 10px;
-    font-size: 1.2em;
+    font-size: 1em;
+    padding: 10px; /* При необходимости добавьте отступы */
     color: #333;
+    /* Убедитесь, что заголовок не создает дополнительного пространства */
+}
+
+.product > *:last-child {
+    flex-grow: 1; /* Убедитесь, что элементы растягиваются по высоте карточки */
 }
 
 .required:after {
@@ -144,18 +155,11 @@ header {
     padding: 5px;
 }
 
-.product-list1 {
-    margin-top: 50px;
-}
-
 main {
     margin: 20px; /* отступы для основного контента */
 }
 
 .search-box, #advanced-search {
-    margin-bottom: 20px; /* добавьте отступы для поиска */
+    margin-bottom: 20px; /* отступы для поиска */
 }
-.products{
-    display: flex;
-    justify-content: space-around;
-}
+

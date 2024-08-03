@@ -15,7 +15,6 @@
         </div>
         <button id="advanced-search-btn">Расширенный поиск</button>
     </header>
-    <main>
         <div class="search1">
             <div class="search-box">
                 <form method="GET" action="{% url 'search_view' %}">
@@ -25,6 +24,7 @@
                 </form>
             </div>
         </div> 
+        
         <!-- Расширенный поиск (скрыт по умолчанию) -->
         <div id="advanced-search" style="display: none;">
             <h2>Расширенный поиск</h2>
@@ -36,17 +36,18 @@
         </div>
     
         <!-- Отображение результатов поиска -->
+    <main>
         {% if products %}
             <div class="product-list">
                 {% for product in products %}
                     <div class="product">
-                        <img src="{{ product.image_url.url }}" alt="{{ product.product_name }}" class="product-image">
+                        <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
                         <h3 class="product-name">{{ product.product_name }}</h3>
                     </div>
-                {% empty %}
-                    <p>По вашему запросу ничего не найдено.</p>
                 {% endfor %}
             </div>
+        {% else %}
+            <p>По вашему запросу ничего не найдено.</p>
         {% endif %}
     </main>
 
@@ -60,3 +61,4 @@
     </script>
 </body>
 </html>
+
