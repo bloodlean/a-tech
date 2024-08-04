@@ -8,9 +8,17 @@ class StoreForm(forms.ModelForm):
         fields = ['image', 'product_name', 'price', 'category', 'brand', 'color']
 
 class AdvancedSearchForm(forms.Form):
-    product_name = forms.CharField(required=False, label='Название книги')
-    price = forms.IntegerField(required=False, label='Цена')
-    Category= forms.ModelMultipleChoiceField(
+    min_price = forms.IntegerField(
+        required=False,
+        label='Минимальная цена',
+        widget=forms.NumberInput(attrs={'placeholder': 'От'})
+    )
+    max_price = forms.IntegerField(
+        required=False,
+        label='Максимальная цена',
+        widget=forms.NumberInput(attrs={'placeholder': 'До'})
+    )
+    Category = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
         required=False,
         label='Категория',
@@ -19,7 +27,7 @@ class AdvancedSearchForm(forms.Form):
     Brand = forms.ModelMultipleChoiceField(
         queryset=Brand.objects.all(),
         required=False,
-        label='Брэнд',
+        label='Бренд',
         widget=forms.CheckboxSelectMultiple
     )
     Color = forms.ModelMultipleChoiceField(
@@ -28,6 +36,7 @@ class AdvancedSearchForm(forms.Form):
         label='Цвет',
         widget=forms.CheckboxSelectMultiple
     )
+
 
 class SearchForm(forms.Form):
     product_name = forms.CharField(
