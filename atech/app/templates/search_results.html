@@ -15,6 +15,16 @@
         </div>
     </header>
 
+    <div class="search1">
+        <div class="search-box">
+            <form method="GET" action="{% url 'search_view' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Искать</button>
+            </form>
+        </div>
+    </div> 
+
     <main>
         {% if products %}
             <div class="product-list">

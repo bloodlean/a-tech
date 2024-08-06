@@ -119,14 +119,18 @@ header {
 .product {
     display: flex;
     flex-direction: column;
-    width: 100%; /* ширина карточки занимает всю доступную ширину */
-    height: 300px; /* фиксированная высота карточки */
+    width: 100%;
+    min-height: 300px; /* Заменить фиксированную высоту на минимальную */
     box-sizing: border-box;
     text-align: center;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    /* Убедитесь, что карточка выравнена правильно */
+    transition: border-color 0.3s ease; /* Плавное изменение цвета рамки */
+}
+
+.product:hover {
+    border-color: rgb(130, 130, 130); /* Цвет рамки при наведении */
 }
 
 .product-image {
@@ -137,13 +141,30 @@ header {
 
 .product-name {
     font-size: 1em;
-    padding: 10px; /* При необходимости добавьте отступы */
+    padding: 10px;
     color: #333;
-    /* Убедитесь, что заголовок не создает дополнительного пространства */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Отображение многоточия при переполнении */
+    white-space: nowrap; /* Запрещает перенос текста на новую строку */
 }
 
 .product > *:last-child {
     flex-grow: 1; /* Убедитесь, что элементы растягиваются по высоте карточки */
+}
+
+.product-price {
+    margin: 5px 0;
+    font-size: 1.2em;
+    color: #333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.product a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .required:after {
@@ -190,6 +211,7 @@ main {
 .product-page .product-description {
     font-size: 16px;
     margin-bottom: 20px;
+    line-height: 1.5;
 }
 
 .product-page .product-price {
@@ -203,20 +225,7 @@ main {
     margin-bottom: 10px;
 }
 
-.product-page .back-button {
-    display: inline-block;
-    background: #333;
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.product-page .back-button:hover {
-    background: #555;
-}
 
 a {
     text-decoration: none;
 }
-
