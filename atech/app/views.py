@@ -38,7 +38,6 @@ def home(request):
         'products': products,
     })
 
-# View для деталей продукта
 def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'product_detail.html', {'product': product})
@@ -47,12 +46,9 @@ def search_view(request):
     if request.method == 'GET':
         form = SearchForm(request.GET)
         if form.is_valid():
-            # Обработка данных формы
             product_name = form.cleaned_data.get('product_name')
             if product_name:
-                # Выполнение поиска продуктов по названию
                 products = Product.objects.filter(product_name__icontains=product_name)
-                # Передача результатов поиска в контексте шаблона
                 return render(request, 'search_results.html', {'products': products})
     else:
         form = SearchForm()
