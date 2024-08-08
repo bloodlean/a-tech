@@ -12,17 +12,20 @@ def home(request):
     if search_form.is_valid():
         product_name = search_form.cleaned_data.get('product_name')
         if product_name:
-            products = products.filter(product_name__icontains=product_name)
+            products = 
+products.filter(product_name__icontains=product_name)
 
     if advanced_search_form.is_valid():
-        product_name = advanced_search_form.cleaned_data.get('product_name')
+        product_name = 
+advanced_search_form.cleaned_data.get('product_name')
         price = advanced_search_form.cleaned_data.get('price')
         category = advanced_search_form.cleaned_data.get('category')
         brand = advanced_search_form.cleaned_data.get('brand')
         color = advanced_search_form.cleaned_data.get('color')
 
         if product_name:
-            products = products.filter(product_name__icontains=product_name)
+            products = 
+products.filter(product_name__icontains=product_name)
         if price:
             products = products.filter(price=price)
         if category:
@@ -42,7 +45,6 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'product_detail.html', {'product': product})
 
-
 def search_view(request):
     form = SearchForm(request.GET)
     products = Product.objects.none()
@@ -50,7 +52,8 @@ def search_view(request):
     if form.is_valid():
         product_name = form.cleaned_data.get('product_name')
         if product_name:
-            products = Product.objects.filter(product_name__icontains=product_name)
+            products = 
+Product.objects.filter(product_name__icontains=product_name)
 
     return render(request, 'search_results.html', {
         'products': products,
@@ -69,7 +72,8 @@ def onlinestore(request):
         products = Product.objects.all()
 
         if product_name:
-            products = products.filter(product_name__icontains=product_name)
+            products = 
+products.filter(product_name__icontains=product_name)
         if price:
             products = products.filter(price=price)
         if category:
@@ -79,7 +83,8 @@ def onlinestore(request):
         if color:
             products = products.filter(color__in=color).distinct()
 
-        return render(request, 'search_results.html', {'products': products, 'search_form': search_form})
+        return render(request, 'search_results.html', {'products': 
+products, 'search_form': search_form})
 
     return render(request, 'base.html', {
         'search_form': search_form,
