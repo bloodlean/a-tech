@@ -42,7 +42,10 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'product_detail.html', {'product': product})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e533b16e437c59bb039e9c79efb15229d5a55cb
 def search_view(request):
     form = SearchForm(request.GET)
     products = Product.objects.none()

@@ -15,6 +15,7 @@
         </div>
         <button id="advanced-search-btn">Расширенный поиск</button>
     </header>
+<<<<<<< HEAD
         <div class="search1">
             <div class="search-box">
                 <form method="GET" action="{% url 'search_view' %}">
@@ -27,28 +28,62 @@
         <div id="advanced-search" style="display: none;">
             <h2>Расширенный поиск</h2>
             <form method="GET" action="{% url 'onlinestore' %}">
+=======
+
+    <div class="search1">
+        <div class="search-box">
+            <form method="GET" action="{% url 'search_view' %}">
+>>>>>>> 3e533b16e437c59bb039e9c79efb15229d5a55cb
                 {% csrf_token %}
-                {{ advanced_search_form.as_p }}
-                <button class="search-btn" type="submit">Искать</button>
+                {{ search_form.as_p }}
+                <button type="submit">Искать</button>
             </form>
         </div>
+<<<<<<< HEAD
         {% if products %}
+=======
+    </div>
+
+    <div id="advanced-search" style="display: none;">
+        <h2>Расширенный поиск</h2>
+        <form method="GET" action="{% url 'onlinestore' %}">
+            {% csrf_token %}
+            {{ advanced_search_form.as_p }}
+            <button class="search-btn" type="submit">Искать</button>
+        </form>
+    </div>
+
+    <main>
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <h2>Категории</h2>
+                <ul class="category-list">
+                    {% for category in categories %}
+                        <li>
+                            <a href="{% url 'category_view' category.id %}">{{ category.сategory_name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </aside>
+>>>>>>> 3e533b16e437c59bb039e9c79efb15229d5a55cb
             <div class="product-list">
-                {% for product in products %}
-                    <div class="product">
-                        <a href="{% url 'product_detail' product.id %}">
-                            <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
-                            <div class="product-info">
-                                <h3 class="product-name">{{ product.product_name }}</h3>
-                                <h3 class="product-price">${{ product.price|floatformat:0 }}</h3>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+                {% if products %}
+                    {% for product in products %}
+                        <div class="product">
+                            <a href="{% url 'product_detail' product.id %}">
+                                <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
+                                <div class="product-info">
+                                    <h3 class="product-name">{{ product.product_name }}</h3>
+                                    <h3 class="product-price">${{ product.price|floatformat:0 }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>По вашему запросу ничего не найдено.</p>
+                {% endif %}
             </div>
-        {% else %}
-            <p>По вашему запросу ничего не найдено.</p>
-        {% endif %}
+        </div>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
