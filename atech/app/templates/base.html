@@ -42,13 +42,11 @@
                 <ul class="category-list">
                     {% for category in categories %}
                         <li>
-                            <a href="{% url 'category_view' category.id %}">{{ category.name }}</a>
+                            <a href="{% url 'category_view' category.id %}">{{ category.сategory_name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
             </aside>
-
-            <!-- Product List -->
             <div class="product-list">
                 {% if products %}
                     {% for product in products %}
