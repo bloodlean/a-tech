@@ -45,20 +45,18 @@ def product_detail(request, product_id):
 
 
 def search_view(request):
-    if request.method == 'GET':
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            # Обработка данных формы
-            product_name = form.cleaned_data.get('product_name')
-            if product_name:
-                # Выполнение поиска продуктов по названию
-                products = Product.objects.filter(product_name__icontains=product_name)
-                # Передача результатов поиска в контексте шаблона
-                return render(request, 'search_results.html', {'products': products})
-    else:
-        form = SearchForm()
+    form = SearchForm(request.GET)
+    products = Product.objects.none()
 
-    return render(request, 'search.html', {'form': form})
+    if form.is_valid():
+        product_name = form.cleaned_data.get('product_name')
+        if product_name:
+            products = Product.objects.filter(product_name__icontains=product_name)
+
+    return render(request, 'search_results.html', {
+        'products': products,
+        'form': form,
+    })
 
 def onlinestore(request):
     search_form = AdvancedSearchForm(request.GET)
