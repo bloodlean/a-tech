@@ -42,20 +42,6 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     return render(request, 'product_detail.html', {'product': product})
 
-<<<<<<< HEAD
-=======
-def search_view(request):
-    if request.method == 'GET':
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            product_name = form.cleaned_data.get('product_name')
-            if product_name:
-                products = Product.objects.filter(product_name__icontains=product_name)
-                return render(request, 'search_results.html', {'products': products})
-    else:
-        form = SearchForm()
->>>>>>> 1520788e54ca196b9f6a2b8cd038294c894c7050
-
 def search_view(request):
     form = SearchForm(request.GET)
     products = Product.objects.none()
