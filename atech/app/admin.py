@@ -1,5 +1,3 @@
-# store/admin.py
-
 from django.contrib import admin
 from .models import User, Category, Brand, Color, Product, Order, OrderItem, Review
 
