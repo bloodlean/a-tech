@@ -71,6 +71,7 @@ header {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 .search-btn:hover {
@@ -231,26 +232,75 @@ a {
 }
 
 .sidebar {
-    width: 20%;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-right: 1px solid #ccc;
+    width: 250px; /* Ширина боковой панели */
+    background-color: #fff; /* Белый фон для боковой панели */
+    padding: 20px; /* Отступы внутри боковой панели */
+    position: sticky; /* Закрепляем боковую панель при скролле */
+    top: 0; /* Закрепление в верхней части страницы */
+    overflow-y: auto; /* Прокрутка, если контент не помещается */
+    border: 2px solid #ddd;
+    margin-right: 20px; /* Отступ справа от боковой панели для отделения от основного контента */
 }
 
+.content-wrapper {
+    display: flex;
+}
+
+/* Стили для списка категорий в боковой панели */
 .category-list {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .category-list li {
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Увеличиваем отступ между элементами списка */
 }
 
-.category-list li a {
+.category-list a {
     text-decoration: none;
+    color: #333; /* Цвет текста ссылок */
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 4px; /* Скругленные углы для ссылок */
+    transition: background-color 0.3s, color 0.3s; /* Плавный переход цвета */
+}
+
+.category-list a:hover {
+    background-color: #f1f1f1; /* Легкий серый фон при наведении */
+    color: rgb(0, 0, 0); /* Цвет текста при наведении */
+}
+
+/* Улучшение внешнего вида заголовков и текста в боковой панели */
+.sidebar h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
     color: #333;
 }
 
-.category-list li a:hover {
-    color: #007BFF;
+.sidebar p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.product-list {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.product-list h2 {
+    margin-top: 0; /* Убираем отступ сверху у заголовка */
+    margin-bottom: 20px; /* Отступ снизу для заголовка */
+}
+
+/* Стили для сетки продуктов */
+.product-list-inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px; /* расстояние между карточками */
+    justify-items: center; /* Центрируем элементы по горизонтали */
 }
