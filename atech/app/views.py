@@ -95,28 +95,31 @@ def search_view(request):
 
 def onlinestore(request):
     search_form = AdvancedSearchForm(request.GET)
+    products = Product.objects.all()
+
     if search_form.is_valid():
         product_name = search_form.cleaned_data.get('product_name')
         price = search_form.cleaned_data.get('price')
-        category = search_form.cleaned_data.get('category')
-        brand = search_form.cleaned_data.get('brand')
-        color = search_form.cleaned_data.get('color')
-
-        products = Product.objects.all()
+        categories = search_form.cleaned_data.get('category')
+        brands = search_form.cleaned_data.get('brand')
+        colors = search_form.cleaned_data.get('color')
 
         if product_name:
             products = products.filter(product_name__icontains=product_name)
+
         if price:
             products = products.filter(price=price)
-        if category:
-            products = products.filter(category__in=category).distinct()
-        if brand:
-            products = products.filter(brand__in=brand).distinct()
-        if color:
-            products = products.filter(color__in=color).distinct()
 
-        return render(request, 'search_results.html', {'products': products, 'search_form': search_form})
+        if categories:
+            products = products.filter(category__in=categories).distinct()
 
-    return render(request, 'base.html', {
+        if brands:
+            products = products.filter(brand__in=brands).distinct()
+
+        if colors:
+            products = products.filter(color__in=colors).distinct()
+
+    return render(request, 'search_results.html', {
+        'products': products,
         'search_form': search_form,
     })
