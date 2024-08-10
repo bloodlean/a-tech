@@ -42,27 +42,29 @@
                 <ul class="category-list">
                     {% for category in categories %}
                         <li>
-                            <a href="{% url 'category_view' category.id %}">{{ category.сategory_name }}</a>
+                            <a href="{% url 'category_view' category.id %}">{{ category.category_name }}</a>
                         </li>
                     {% endfor %}
                 </ul>
             </aside>
             <div class="product-list">
-                {% if products %}
-                    {% for product in products %}
-                        <div class="product">
-                            <a href="{% url 'product_detail' product.id %}">
-                                <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
-                                <div class="product-info">
-                                    <h3 class="product-name">{{ product.product_name }}</h3>
-                                    <h3 class="product-price">${{ product.price|floatformat:0 }}</h3>
-                                </div>
-                            </a>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <p>По вашему запросу ничего не найдено.</p>
-                {% endif %}
+                <div class="product-list-inner">
+                    {% if products %}
+                        {% for product in products %}
+                            <div class="product">
+                                <a href="{% url 'product_detail' product.id %}">
+                                    <img src="{{ product.image.url }}" alt="{{ product.product_name }}" class="product-image">
+                                    <div class="product-info">
+                                        <h3 class="product-name">{{ product.product_name }}</h3>
+                                        <h3 class="product-price">${{ product.price|floatformat:0 }}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p>По вашему запросу ничего не найдено.</p>
+                    {% endif %}                    
+                </div>
             </div>
         </div>
     </main>
@@ -77,4 +79,3 @@
     </script>
 </body>
 </html>
-
