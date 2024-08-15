@@ -145,7 +145,8 @@ def add_to_cart(request, product_id):
     return redirect('view_cart')
 
 def view_cart(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
+    user = request.user
+    cart, created = Cart.objects.get_or_create(user=user)
     return render(request, 'cart.html', {'cart': cart})
 
 def remove_from_cart(request, item_id):
