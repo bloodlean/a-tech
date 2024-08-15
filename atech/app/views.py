@@ -5,8 +5,7 @@ from .forms import *
 from django.db.models import Q
 from .models import Product, Category, Brand, Color
 from .forms import AdvancedSearchForm
-from .models import Product, Cart, CartItem
-from django.contrib.auth.decorators import login_required
+from .models import Product, Cart
 
 def home(request):
     search_form = SearchForm(request.GET)
@@ -132,34 +131,35 @@ def advanced_search_view(request):
         'advanced_search_form': advanced_search_form,
     })
 
-@login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
-    cart, created = Cart.objects.get_or_create(user=request.user)
-    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    session_key = request.session.session_key
+    if not session_key:
+        request.session.create()
+        session_key = request.session.session_key
 
+    cart_item, created = Cart.objects.get_or_create(session_key=session_key, product=product)
+    
     if not created:
         cart_item.quantity += 1
         cart_item.save()
 
     return redirect('view_cart')
 
-@login_required
 def view_cart(request):
-    user = request.user
-    cart, created = Cart.objects.get_or_create(user=user)
-    return render(request, 'cart.html', {'cart': cart})
+    session_key = request.session.session_key
+    if not session_key:
+        return render(request, 'cart/view_cart.html', {'cart_items': []})
 
-@login_required
-def remove_from_cart(request, item_id):
-    cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
-    cart_item.delete()
+    cart_items = Cart.objects.filter(session_key=session_key)
+    total_price = sum(item.product.price * item.quantity for item in cart_items)
+
+    return render(request, 'cart/view_cart.html', {'cart_items': cart_items, 'total_price': total_price})
+
+def remove_from_cart(request, product_id):
+    session_key = request.session.session_key
+    if session_key:
+        cart_item = get_object_or_404(Cart, session_key=session_key, product_id=product_id)
+        cart_item.delete()
+
     return redirect('view_cart')
-
-@login_required
-def checkout(request):
-    cart = get_object_or_404(Cart, user=request.user)
-    if request.method == 'POST':
-        pass
-
-    return render(request, 'checkout.html', {'cart': cart})
