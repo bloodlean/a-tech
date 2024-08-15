@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Корзина</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
@@ -21,16 +21,16 @@
                 {% for item in cart.items.all %}
                     <li>
                         {{ item.product.product_name }} - {{ item.quantity }} x ${{ item.product.price|floatformat:2 }}
-                        <a href="{% url 'remove_from_cart' item.id %}">Remove</a>
+                        <a href="{% url 'remove_from_cart' item.id %}">Удалить</a>
                     </li>
                 {% endfor %}
             </ul>
             <p>Total: ${{ cart.total_price|floatformat:2 }}</p>
-            <a href="{% url 'checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+            <a href="{% url 'checkout' %}" class="btn btn-primary">Оформить</a>
         {% else %}
-            <p>Your cart is empty.</p>
+            <p>Ваша корзина пуста.</p>
         {% endif %}
-        <a href="{% url 'home' %}" class="btn btn-secondary">Continue Shopping</a>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Продолжить покупки</a>
     </main>
 </body>
 </html>

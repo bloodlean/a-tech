@@ -146,7 +146,8 @@ def add_to_cart(request, product_id):
 
 @login_required
 def view_cart(request):
-    cart, created = Cart.objects.get_or_create(user=request.user)
+    user = request.user
+    cart, created = Cart.objects.get_or_create(user=user)
     return render(request, 'cart.html', {'cart': cart})
 
 @login_required
