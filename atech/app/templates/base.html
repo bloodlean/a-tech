@@ -32,7 +32,7 @@
 
         <div id="advanced-search" style="display: none;">
             <h2>Расширенный поиск</h2>
-            <form method="GET" action="{% url 'onlinestore' %}">
+            <form method="GET" action="{% url 'advanced_search' %}">
                 {% csrf_token %}
                 {{ advanced_search_form.as_p }}
                 <button class="search-btn" type="submit">Искать</button>
