@@ -101,7 +101,6 @@ def search_view(request):
         'form': form,
     })
 
-<<<<<<< HEAD
 def advanced_search_view(request):
     advanced_search_form = AdvancedSearchForm(request.GET)
     products = Product.objects.all()
@@ -160,7 +159,6 @@ def remove_from_cart(request, item_id):
 def checkout(request):
     cart = get_object_or_404(Cart, user=request.user)
     if request.method == 'POST':
-        # Handle the checkout process here
         pass
 
     return render(request, 'checkout.html', {'cart': cart})
