@@ -104,32 +104,33 @@ def advanced_search_view(request):
     advanced_search_form = AdvancedSearchForm(request.GET)
     products = Product.objects.all()
 
+
     if advanced_search_form.is_valid():
-        product_name = advanced_search_form.cleaned_data.get('product_name')
-        min_price = advanced_search_form.cleaned_data.get('min_price')
-        max_price = advanced_search_form.cleaned_data.get('max_price')
-        category = advanced_search_form.cleaned_data.get('category')
-        brand = advanced_search_form.cleaned_data.get('brand')
-        color = advanced_search_form.cleaned_data.get('color')
+            product_name = advanced_search_form.cleaned_data.get('product_name')
+            min_price = advanced_search_form.cleaned_data.get('min_price')
+            max_price = advanced_search_form.cleaned_data.get('max_price')
+            category = advanced_search_form.cleaned_data.get('category')
+            brand = advanced_search_form.cleaned_data.get('brand')
+            color = advanced_search_form.cleaned_data.get('color')
 
-        if product_name:
-            products = products.filter(product_name__icontains=product_name)
-        if min_price is not None:
-            products = products.filter(price__gte=min_price)
-        if max_price is not None:
-            products = products.filter(price__lte=max_price)
-        if category:
-            products = products.filter(category__in=category)
-        if brand:
-            products = products.filter(brand__in=brand)
-        if color:
-            products = products.filter(color__in=color)
+            if product_name:
+                products = products.filter(product_name__icontains=product_name)
+            if min_price is not None:
+                products = products.filter(price__gte=min_price)
+            if max_price is not None:
+                products = products.filter(price__lte=max_price)
+            if category:
+                products = products.filter(category__in=category)
+            if brand:
+                products = products.filter(brand__in=brand)
+            if color:
+                products = products.filter(color__in=color)
 
-    return render(request, 'search_results.html', {
-        'products': products,
-        'search_form': SearchForm(), 
-        'advanced_search_form': advanced_search_form,
-    })
+            return render(request, 'search_results.html', {
+                'products': products,
+                'search_form': SearchForm(), 
+                'advanced_search_form': advanced_search_form,
+            })
 
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
