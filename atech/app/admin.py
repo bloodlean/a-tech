@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import User, Category, Brand, Color, Product, Order, OrderItem, Review
+from .models import Cart, CartItem
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -52,3 +53,11 @@ class ReviewAdmin(admin.ModelAdmin):
     search_fields = ('product__product_name', 'user__username')
     list_filter = ('rating', 'product')
     ordering = ('-review_date',)
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('user', 'created_at')
+
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ('cart', 'product', 'quantity')

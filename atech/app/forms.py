@@ -1,11 +1,5 @@
 from django import forms
-from .models import Product
 from .models import Category, Brand, Color
-
-class StoreForm(forms.ModelForm):
-    class Meta:
-        model = Product
-        fields = ['image', 'product_name', 'price', 'category', 'brand', 'color']
 
 class AdvancedSearchForm(forms.Form):
     min_price = forms.IntegerField(
@@ -18,25 +12,29 @@ class AdvancedSearchForm(forms.Form):
         label='Максимальная цена',
         widget=forms.NumberInput(attrs={'placeholder': 'До'})
     )
-    Category = forms.ModelMultipleChoiceField(
+    category = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
         required=False,
         label='Категория',
         widget=forms.CheckboxSelectMultiple
     )
-    Brand = forms.ModelMultipleChoiceField(
+    brand = forms.ModelMultipleChoiceField(
         queryset=Brand.objects.all(),
         required=False,
         label='Бренд',
         widget=forms.CheckboxSelectMultiple
     )
-    Color = forms.ModelMultipleChoiceField(
+    color = forms.ModelMultipleChoiceField(
         queryset=Color.objects.all(),
         required=False,
         label='Цвет',
         widget=forms.CheckboxSelectMultiple
     )
-
+    product_name = forms.CharField(
+        required=False,
+        label='Название продукта',
+        widget=forms.TextInput(attrs={'placeholder': 'Название продукта'})
+    )
 
 class SearchForm(forms.Form):
     product_name = forms.CharField(

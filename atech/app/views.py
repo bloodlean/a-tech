@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import *
 from django.db.models import Q
+from .models import Product, Category, Brand, Color
+from .forms import AdvancedSearchForm
+from .models import Product, Cart, CartItem
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     search_form = SearchForm(request.GET)
@@ -17,15 +21,18 @@ def home(request):
 
     if advanced_search_form.is_valid():
         product_name = advanced_search_form.cleaned_data.get('product_name')
-        price = advanced_search_form.cleaned_data.get('price')
+        min_price = advanced_search_form.cleaned_data.get('min_price')
+        max_price = advanced_search_form.cleaned_data.get('max_price')
         category = advanced_search_form.cleaned_data.get('category')
         brand = advanced_search_form.cleaned_data.get('brand')
         color = advanced_search_form.cleaned_data.get('color')
 
         if product_name:
             products = products.filter(product_name__icontains=product_name)
-        if price:
-            products = products.filter(price=price)
+        if min_price:
+            products = products.filter(price__gte=min_price)
+        if max_price:
+            products = products.filter(price__lte=max_price)
         if category:
             products = products.filter(category__in=category).distinct()
         if brand:
@@ -39,6 +46,7 @@ def home(request):
         'products': products,
         'categories': categories,
     })
+
 
 def category_view(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
@@ -93,30 +101,66 @@ def search_view(request):
         'form': form,
     })
 
-def onlinestore(request):
-    search_form = AdvancedSearchForm(request.GET)
-    if search_form.is_valid():
-        product_name = search_form.cleaned_data.get('product_name')
-        price = search_form.cleaned_data.get('price')
-        category = search_form.cleaned_data.get('category')
-        brand = search_form.cleaned_data.get('brand')
-        color = search_form.cleaned_data.get('color')
+<<<<<<< HEAD
+def advanced_search_view(request):
+    advanced_search_form = AdvancedSearchForm(request.GET)
+    products = Product.objects.all()
 
-        products = Product.objects.all()
+    if advanced_search_form.is_valid():
+        product_name = advanced_search_form.cleaned_data.get('product_name')
+        min_price = advanced_search_form.cleaned_data.get('min_price')
+        max_price = advanced_search_form.cleaned_data.get('max_price')
+        category = advanced_search_form.cleaned_data.get('category')
+        brand = advanced_search_form.cleaned_data.get('brand')
+        color = advanced_search_form.cleaned_data.get('color')
 
         if product_name:
             products = products.filter(product_name__icontains=product_name)
-        if price:
-            products = products.filter(price=price)
+        if min_price is not None:
+            products = products.filter(price__gte=min_price)
+        if max_price is not None:
+            products = products.filter(price__lte=max_price)
         if category:
-            products = products.filter(category__in=category).distinct()
+            products = products.filter(category__in=category)
         if brand:
-            products = products.filter(brand__in=brand).distinct()
+            products = products.filter(brand__in=brand)
         if color:
-            products = products.filter(color__in=color).distinct()
+            products = products.filter(color__in=color)
 
-        return render(request, 'search_results.html', {'products': products, 'search_form': search_form})
-
-    return render(request, 'base.html', {
-        'search_form': search_form,
+    return render(request, 'search_results.html', {
+        'products': products,
+        'search_form': SearchForm(), 
+        'advanced_search_form': advanced_search_form,
     })
+
+@login_required
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('view_cart')
+
+@login_required
+def view_cart(request):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    return render(request, 'cart.html', {'cart': cart})
+
+@login_required
+def remove_from_cart(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    cart_item.delete()
+    return redirect('view_cart')
+
+@login_required
+def checkout(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    if request.method == 'POST':
+        # Handle the checkout process here
+        pass
+
+    return render(request, 'checkout.html', {'cart': cart})
