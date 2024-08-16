@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import User, Category, Brand, Color, Product, Order, OrderItem, Review
-from .models import Cart, CartItem
+from .models import *
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):

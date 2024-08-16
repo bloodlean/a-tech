@@ -14,9 +14,11 @@
             <a href="{% url 'home' %}"><h1>ATech</h1></a>
         </div>
         <nav>
-            <a href="{% url 'view_cart' %}">Корзина</a>
+            <div class="header-buttons">
+                <a class="cart-button" href="{% url 'view_cart' %}">Корзина</a>
+                <button id="advanced-search-btn">Расширенный поиск</button>
+            </div>
         </nav>
-        <button id="advanced-search-btn">Расширенный поиск</button>
     </header>
 
     <main>

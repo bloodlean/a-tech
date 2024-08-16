@@ -42,8 +42,8 @@ class Product(models.Model):
         return self.product_name
 
 class Cart(models.Model):
-    session_key = models.CharField(max_length=40)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    session_key = models.CharField(max_length=40, default='default_session_key') 
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, default=1)
     quantity = models.PositiveIntegerField(default=1)
 
     def __str__(self):

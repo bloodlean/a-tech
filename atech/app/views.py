@@ -150,12 +150,12 @@ def add_to_cart(request, product_id):
 def view_cart(request):
     session_key = request.session.session_key
     if not session_key:
-        return render(request, 'cart/view_cart.html', {'cart_items': []})
+        return render(request, 'view_cart.html', {'cart_items': []})
 
     cart_items = Cart.objects.filter(session_key=session_key)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
 
-    return render(request, 'cart/view_cart.html', {'cart_items': cart_items, 'total_price': total_price})
+    return render(request, 'view_cart.html', {'cart_items': cart_items, 'total_price': total_price})
 
 def remove_from_cart(request, product_id):
     session_key = request.session.session_key
