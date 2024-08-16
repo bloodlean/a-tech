@@ -54,10 +54,3 @@ class ReviewAdmin(admin.ModelAdmin):
     list_filter = ('rating', 'product')
     ordering = ('-review_date',)
 
-@admin.register(Cart)
-class CartAdmin(admin.ModelAdmin):
-    list_display = ('user', 'created_at')
-
-@admin.register(CartItem)
-class CartItemAdmin(admin.ModelAdmin):
-    list_display = ('cart', 'product', 'quantity')
